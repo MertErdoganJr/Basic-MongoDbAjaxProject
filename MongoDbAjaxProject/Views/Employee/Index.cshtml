@@ -22,8 +22,17 @@
 <hr />
 
 <h3>Personel Listesi</h3>
-<div id="employeelist">
+<div id="employeelist"></div>
 
+<hr />
+
+<h3>Yeni Personel Girişi</h3>
+<div>
+    <input type="text" class="form-control" placeholder="Personel Adı" id="txtname" style="border:1px solid #000"/>
+    <br />
+    <input type="text" class="form-control" placeholder="Personel Soyadı" id="txtsurname" style="border:1px solid #000" />
+    <br />
+    <input type="text" class="form-control" placeholder="Personel Maaş" id="txtsalary" style="border:1px solid #000" />
 </div>
 
 <script>
@@ -54,6 +63,24 @@
                 });
                 tablehtml += `</table>`;
                 $("#employeelist").html(tablehtml);
+            }
+        });
+    });
+
+    $("#btnemployeecreate").click(function () {
+        let employeevalues = {
+            EmployeeName: $("#txtname").val(),
+            EmployeeSurname: $("#txtsurname").val(),
+            EmployeeSalary: $("#txtsalary").val()
+        };
+
+        $.ajax({
+            type: "Post",
+            url: "/Employee/CreateEmployee",
+            data: employeevalues,
+            success: function (funk2) {
+                let result = jQuery.parseJSON(funk2);
+                alert("Personel Başarıyla Eklendi");
             }
         });
     });

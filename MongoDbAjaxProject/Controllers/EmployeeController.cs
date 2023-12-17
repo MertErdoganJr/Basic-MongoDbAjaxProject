@@ -29,5 +29,13 @@ namespace MongoDbAjaxProject.Controllers
             return Json(jsonEmployees);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateEmployee(Employee employee)
+        {
+            await _employeeCollection.InsertOneAsync(employee);
+            var values = JsonConvert.SerializeObject(employee);
+            return Json(values);
+        }
+
     }
 }
