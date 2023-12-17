@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MongoLayout.cshtml";
+}
+
+<h1>Personel Listesi</h1>
+
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<div class="container">
+    <br />
+    <h3>İşlem Butonları</h3>
+    <button type="button" id="btnemployeelist" class="btn btn-outline-primary">Personel Listesi</button>
+    <button type="button" id="btnemployeecreate" class="btn btn-outline-info">Personel Ekle</button>
+    <button type="button" id="btnemployeedelete" class="btn btn-outline-danger">Personel Sil</button>
+    <button type="button" id="btnemployeeget" class="btn btn-outline-dark">Personel Getir</button>
+    <button type="button" id="btnemployeeupdate" class="btn btn-outline-success">Personel Güncelle</button>
+</div>
+
+<br />
+<hr />
+
+<script>
+
+    $("#btnemployeelist").click(function () {
+        $.ajax({
+            contentType: "application/json",
+            dataType: "json",
+            type: "Get",
+            url: "/Employee/EmployeeList/",
+            success: function (funk1) {
+                let values = jQuery.parseJSON(funk1);
+                console.log(values);
+            };
+        });
+    });
+
+</script>

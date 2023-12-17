@@ -14,7 +14,6 @@ builder.Services.AddSingleton<IDatabaseSettings>(sp =>
 });
 
 
-
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
