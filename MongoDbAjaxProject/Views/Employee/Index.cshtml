@@ -41,6 +41,26 @@
 
 <div id="employeelistbyid"></div>
 
+<hr />
+
+<div id="">
+    <h3>Personel Silme Alanı</h3>
+    <input type="text" placeholder="Silmek istediğiniz personel ID" style="border:1px solid #000" class="form-control" id="txtdeletedemployeeid" />
+</div>
+
+<hr />
+
+<div>
+    <h3>Personel Güncelleme Sayfası</h3>
+    <input type="text" class="form-control" placeholder="Güncellebecek Personel Adı" id="txtidedit" style="border:1px solid #000" />
+    <br />
+    <input type="text" class="form-control" placeholder="Güncellebecek Personel Adı" id="txtnameedit" style="border:1px solid #000" />
+    <br />
+    <input type="text" class="form-control" placeholder="Güncellebecek Personel Soyadı" id="txtsurnameedit" style="border:1px solid #000" />
+    <br />
+    <input type="text" class="form-control" placeholder="Güncellebecek Personel Maaş" id="txtsalaryedit" style="border:1px solid #000" />
+</div>
+
 <script>
 
     $("#btnemployeelist").click(function () {
@@ -53,19 +73,19 @@
                 let values = jQuery.parseJSON(funk1);
                 console.log(values);
                 let tablehtml = `<table class=table table-bordered>
-                                           <tr>
-                                           <th>Personel ID</th>
-                                           <th>Personel Adı</th>
-                                           <th>Personel Soyadı</th>
-                                           <th>Personel Maaş</th>
-                                           </tr>`
+                                                               <tr>
+                                                               <th>Personel ID</th>
+                                                               <th>Personel Adı</th>
+                                                               <th>Personel Soyadı</th>
+                                                               <th>Personel Maaş</th>
+                                                               </tr>`
                 $.each(values, (index, value) => {
                     tablehtml += `<tr>
-                                            <td>${value.EmployeeID}</td>
-                                            <td>${value.EmployeeName}</td>
-                                            <td>${value.EmployeeSurname}</td>
-                                            <td>${value.EmployeeSalary}</td>
-                                            </tr>`
+                                                                <td>${value.EmployeeID}</td>
+                                                                <td>${value.EmployeeName}</td>
+                                                                <td>${value.EmployeeSurname}</td>
+                                                                <td>${value.EmployeeSalary}</td>
+                                                                </tr>`
                 });
                 tablehtml += `</table>`;
                 $("#employeelist").html(tablehtml);
@@ -103,23 +123,53 @@
                 let result = jQuery.parseJSON(funk3);
                 console.log(result);
                 let htmlstr = `<table class = table table-hover>
-                <tr>
-                <th>Personel ID</th>
-                <th>Personel Adı</th>
-                <th>Personel Soyadı</th>
-                <th>Personel Maaşı</th>
-                </tr>
-                <tr>
-                <td>${result.EmployeeID}</td>
-                <td>${result.EmployeeName}</td>
-                <td>${result.EmployeeSurname}</td>
-                <td>${result.EmployeeSalary}</td>
-                </tr>
-                </table>`;
+                                    <tr>
+                                    <th>Personel ID</th>
+                                    <th>Personel Adı</th>
+                                    <th>Personel Soyadı</th>
+                                    <th>Personel Maaşı</th>
+                                    </tr>
+                                    <tr>
+                                    <td>${result.EmployeeID}</td>
+                                    <td>${result.EmployeeName}</td>
+                                    <td>${result.EmployeeSurname}</td>
+                                    <td>${result.EmployeeSalary}</td>
+                                    </tr>
+                                    </table>`;
                 $("#employeelistbyid").html(htmlstr);
             }
         })
     })
 
+    $("#btnemployeedelete").click(function () {
+        let id = $("#txtdeletedemployeeid").val();
+        $.ajax({
+            url: "/Employee/DeleteEmployee/" + id,
+            type: "Get",
+            contentType: "application/json",
+            success: function (funk4) {
+                swal("Personel Başarıyla Silindi");
+            }
+        })
+    })
+
+    $("#btnemployeeupdate").click(function () {
+        let values = {
+            EmployeeID: $("#txtidedit").val(),
+            EmployeeName: $("#txtnameedit").val(),
+            EmployeeSurname: $("#txtsurnameedit").val(),
+            EmployeeSalary: $("#txtsalaryedit").val()
+        };
+        $.ajax({
+            url: "/Employee/UpdateEmployee/",
+            type:"post",
+            data: values,
+            success: function (funk5) {
+                swal("Güncelleme Başarıyla Yapıldı");
+            }
+        });
+    });
+
 </script>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

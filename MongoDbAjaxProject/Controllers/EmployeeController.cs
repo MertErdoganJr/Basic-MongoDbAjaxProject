@@ -44,5 +44,17 @@ namespace MongoDbAjaxProject.Controllers
             return Json(jsonValues);
         }
 
+        public async Task<IActionResult> DeleteEmployee(string id)
+        {
+            await _employeeCollection.DeleteOneAsync(x=>x.EmployeeID == id);
+            return NoContent();
+        }
+
+        public async Task<IActionResult> UpdateEmployee(Employee employee)
+        {
+            var values = await _employeeCollection.FindOneAndReplaceAsync(x=>x.EmployeeID == employee.EmployeeID, employee);
+            return NoContent();
+        }
+
     }
 }
