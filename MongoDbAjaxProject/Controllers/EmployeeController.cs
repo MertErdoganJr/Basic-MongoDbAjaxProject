@@ -37,5 +37,12 @@ namespace MongoDbAjaxProject.Controllers
             return Json(values);
         }
 
+        public async Task<IActionResult> GetEmployee(string EmployeeId)
+        {
+            var values = await _employeeCollection.Find(x => x.EmployeeID == EmployeeId).FirstOrDefaultAsync();
+            var jsonValues = JsonConvert.SerializeObject(values);
+            return Json(jsonValues);
+        }
+
     }
 }
